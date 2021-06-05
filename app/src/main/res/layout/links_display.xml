@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#000"
+    android:padding="2dp"
+    android:id="@+id/layout"
+    android:layout_marginTop="1dp"
+    android:layout_marginBottom="1dp">
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hi"
+    android:textSize="22dp"
+    android:textColor="#fff"
+    android:fontFamily="@font/montserrat"
+    android:id="@+id/link"/>
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_below="@+id/link"
+        android:textSize="15dp"
+        android:text="Hi"
+        android:textColor="#cdcdcd"
+    android:id="@+id/alttext"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_delete"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/deletelink"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:id="@+id/id"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/category"
+        android:visibility="gone"/>
+</RelativeLayout>

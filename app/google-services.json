@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "179145376337",
+    "project_id": "snl-tech",
+    "storage_bucket": "snl-tech.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179145376337:android:17307612db12d7b676ee70",
+        "android_client_info": {
+          "package_name": "com.example.snltech"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179145376337-v2v7uqinlnpm67rpp1k78646ubrq1gr1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2jltmPem7DbqPFThnvKn5hLIMwiNDk6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179145376337-v2v7uqinlnpm67rpp1k78646ubrq1gr1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
