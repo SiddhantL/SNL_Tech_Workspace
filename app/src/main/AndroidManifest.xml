@@ -10,7 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UploadGallery"></activity>
+        <activity android:name=".GalleryFiles"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" ></activity>
+        <activity android:name=".UploadGallery"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity"  />
         <activity
             android:name=".EditInfo"
             android:screenOrientation="portrait"

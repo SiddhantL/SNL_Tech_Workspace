@@ -25,7 +25,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
     android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
         android:id="@+id/recyclefiles"/>
+
+   <!-- <com.nambimobile.widgets.efab.ExpandableFabLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fab">
+
+        &lt;!&ndash; The next 3 Views will only display in portrait orientation &ndash;&gt;
+        <com.nambimobile.widgets.efab.Overlay
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:overlay_orientation="portrait"/>
+        <com.nambimobile.widgets.efab.ExpandableFab
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="@dimen/ui_margin_medium"
+            android:layout_marginEnd="@dimen/ui_margin_medium"
+            android:layout_marginRight="@dimen/ui_margin_medium"
+            app:efab_orientation="portrait"
+            app:efab_color="@android:color/black"
+            app:efab_icon="@drawable/ic_plus_white_24dp"/>
+        <com.nambimobile.widgets.efab.FabOption
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_orientation="portrait"
+            app:label_text="Portrait Option 1"/>
+    </com.nambimobile.widgets.efab.ExpandableFabLayout>-->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -34,5 +62,5 @@
         android:layout_alignParentBottom="true"
         android:backgroundTint="@android:color/black"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
+        app:srcCompat="@drawable/ic_plus_white_24dp" />
 </RelativeLayout>

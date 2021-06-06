@@ -70,6 +70,6 @@
         android:layout_alignParentBottom="true"
         android:backgroundTint="@android:color/black"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/ic_plus_white_24dp" />
 </RelativeLayout>
 </RelativeLayout>
