@@ -110,7 +110,7 @@ public class GalleryFragment extends Fragment {
                             data.setTime("00:00");
                             data.setCategory("App");
                             data.setName(snapshot.child("Name").getValue(String.class));
-                            data.setIntro(snapshot.child("About").getValue(String.class));
+                            data.setIntro("");
                             items.add(new ModelClass(data));
                             adapter.notifyDataSetChanged();
                         }
