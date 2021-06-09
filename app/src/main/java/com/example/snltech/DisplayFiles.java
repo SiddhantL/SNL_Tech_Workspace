@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SearchView;
@@ -69,7 +70,8 @@ public class DisplayFiles extends AppCompatActivity {
     String filename;
     VideoView videoView;
     SimpleExoPlayerView exoPlayerView;
-
+    ImageView swipeImage;
+    String id;
     // creating a variable for exoplayer
     SimpleExoPlayer exoPlayer;
     @SuppressLint("ClickableViewAccessibility")
@@ -86,12 +88,26 @@ public class DisplayFiles extends AppCompatActivity {
         final String url=getIntent().getStringExtra("url");
         imageURL=url;
         videoView=findViewById(R.id.videoView);
-        final String id=getIntent().getStringExtra("id");
+        id=getIntent().getStringExtra("id");
         position=getIntent().getIntExtra("pos",1);
         filename=getIntent().getStringExtra("filename");
+        final Button left=findViewById(R.id.buttonleft);
+        Button right=findViewById(R.id.buttonright);
+        left.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                right();
+            }
+        });
+        right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                left();
+            }
+        });
         tv=findViewById(R.id.text);
         tv.setText(filename);
-        final ImageView swipeImage=findViewById(R.id.displayFile);
+        swipeImage=findViewById(R.id.displayFile);
         Glide.with(getApplicationContext()).load(url).into(swipeImage);
         if (filename!=null) {
             if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
@@ -102,133 +118,14 @@ public class DisplayFiles extends AppCompatActivity {
         }
         swipeImage.setOnTouchListener(new OnSwipeTouchListener(DisplayFiles.this) {
             public void onSwipeLeft() {
-                Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
-                DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
-                dref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        position++;
-                        filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
-                        if (filename!=null) {
-                            if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
-                                exoPlayerView.setVisibility(View.GONE);
-                            } else {
-                                exoPlayerView.setVisibility(View.VISIBLE);
-                            }
-                        }
-                        tv.setText(filename);
-                        if (snapshot.child("File"+Integer.toString(position)).getValue()!=null){
-                            FirebaseStorage stor = FirebaseStorage.getInstance();
-                            stor.getReference().child("files/"+id+"/"+(snapshot.child("File"+Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String url = uri.toString();
-                                    imageURL=url;
-                                    initializeExoplayerView(imageURL);
-                                    //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                    Glide.with(DisplayFiles.this).load(url).into(swipeImage);
-                                }
-                            });
-                        }else{
-                            position=1;
-                            filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
-                            if (filename!=null) {
-                                if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
-                                    exoPlayerView.setVisibility(View.GONE);
-                                } else {
-                                    exoPlayerView.setVisibility(View.VISIBLE);
-                                }
-                            }
-                            tv.setText(filename);
-                            if (snapshot.child("File"+Integer.toString(position)).getValue()!=null) {
-                                FirebaseStorage stor = FirebaseStorage.getInstance();
-                                stor.getReference().child("files/" + id + "/" + (snapshot.child("File" + Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String url = uri.toString();
-                                        imageURL=url;
-                                        initializeExoplayerView(imageURL);
-                                        //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                        Glide.with(DisplayFiles.this).load(url).into(swipeImage);
-                                    }
-                                });
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                left();
             }
+
             public void onSwipeRight() {
-                Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
-                DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
-                dref.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        position--;
-                        filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
-                     if (filename!=null) {
-                         if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
-                             exoPlayerView.setVisibility(View.GONE);
-                         } else {
-                             exoPlayerView.setVisibility(View.VISIBLE);
-                         }
-                     }
-                        tv.setText(filename);
-                        if (snapshot.child("File"+Integer.toString(position)).getValue()!=null){
-                            FirebaseStorage stor = FirebaseStorage.getInstance();
-                            stor.getReference().child("files/"+id+"/"+(snapshot.child("File"+Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String url = uri.toString();
-                                    imageURL=url;
-                                    initializeExoplayerView(imageURL);
-                                    //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                    Glide.with(DisplayFiles.this).load(url).into(swipeImage);
-                                }
-                            });
-                        }else{
-                            position=1;
-                            filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
-                            if (filename!=null) {
-                                if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
-                                    exoPlayerView.setVisibility(View.GONE);
-                                } else {
-                                    exoPlayerView.setVisibility(View.VISIBLE);
-                                }
-                            }
-                            tv.setText(filename);
-                            if (snapshot.child("File"+Integer.toString(position)).getValue()!=null) {
-                                FirebaseStorage stor = FirebaseStorage.getInstance();
-                                stor.getReference().child("files/" + id + "/" + (snapshot.child("File" + Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                    @Override
-                                    public void onSuccess(Uri uri) {
-                                        String url = uri.toString();
-                                        imageURL=url;
-                                        initializeExoplayerView(imageURL);
-                                        //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                        Glide.with(DisplayFiles.this).load(url).into(swipeImage);
-                                    }
-                                });
-                            }
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                right();
             }
-
         });
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -350,4 +247,129 @@ public class DisplayFiles extends AppCompatActivity {
             Log.e("TAG", "Error : " + e.toString());
         }
     }
-}
+    public void left(){
+        Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
+        DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
+        dref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                position++;
+                filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
+                if (filename!=null) {
+                    if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
+                        exoPlayerView.setVisibility(View.GONE);
+                    } else {
+                        exoPlayerView.setVisibility(View.VISIBLE);
+                    }
+                }
+                tv.setText(filename);
+                if (snapshot.child("File"+Integer.toString(position)).getValue()!=null){
+                    FirebaseStorage stor = FirebaseStorage.getInstance();
+                    stor.getReference().child("files/"+id+"/"+(snapshot.child("File"+Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            imageURL=url;
+                            initializeExoplayerView(imageURL);
+                            //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
+                            Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                        }
+                    });
+                }else{
+                    position=1;
+                    filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
+                    if (filename!=null) {
+                        if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
+                            exoPlayerView.setVisibility(View.GONE);
+                        } else {
+                            exoPlayerView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    tv.setText(filename);
+                    if (snapshot.child("File"+Integer.toString(position)).getValue()!=null) {
+                        FirebaseStorage stor = FirebaseStorage.getInstance();
+                        stor.getReference().child("files/" + id + "/" + (snapshot.child("File" + Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+                                imageURL=url;
+                                initializeExoplayerView(imageURL);
+                                //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
+                                Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    public void right(){
+        Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
+        DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
+        dref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                position--;
+                filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
+                if (filename!=null) {
+                    if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
+                        exoPlayerView.setVisibility(View.GONE);
+                    } else {
+                        exoPlayerView.setVisibility(View.VISIBLE);
+                    }
+                }
+                tv.setText(filename);
+                if (snapshot.child("File"+Integer.toString(position)).getValue()!=null){
+                    FirebaseStorage stor = FirebaseStorage.getInstance();
+                    stor.getReference().child("files/"+id+"/"+(snapshot.child("File"+Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            String url = uri.toString();
+                            imageURL=url;
+                            initializeExoplayerView(imageURL);
+                            //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
+                            Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                        }
+                    });
+                }else{
+                    position=1;
+                    filename=snapshot.child("File"+Integer.toString(position)).getValue(String.class);
+                    if (filename!=null) {
+                        if (!filename.substring(filename.lastIndexOf(".")).equals(".mp4")) {
+                            exoPlayerView.setVisibility(View.GONE);
+                        } else {
+                            exoPlayerView.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    tv.setText(filename);
+                    if (snapshot.child("File"+Integer.toString(position)).getValue()!=null) {
+                        FirebaseStorage stor = FirebaseStorage.getInstance();
+                        stor.getReference().child("files/" + id + "/" + (snapshot.child("File" + Integer.toString(position)).getValue(String.class))).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                            @Override
+                            public void onSuccess(Uri uri) {
+                                String url = uri.toString();
+                                imageURL=url;
+                                initializeExoplayerView(imageURL);
+                                //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
+                                Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                            }
+                        });
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+    }
+
