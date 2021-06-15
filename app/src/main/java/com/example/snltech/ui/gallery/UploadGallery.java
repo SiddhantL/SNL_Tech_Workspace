@@ -1,4 +1,4 @@
-package com.example.snltech;
+package com.example.snltech.ui.gallery;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -6,10 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -19,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
+import com.example.snltech.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -32,9 +34,10 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.io.IOException;
 
-public class EditInfo extends AppCompatActivity {
+public class UploadGallery extends AppCompatActivity {
     private Button btnSelect, btnUpload;
 
     // view for image view
@@ -42,61 +45,37 @@ public class EditInfo extends AppCompatActivity {
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
-    EditText name,about;
+    EditText name;
     Spinner category;
     // request code
+    String fileExtension;
     private final int PICK_IMAGE_REQUEST = 22;
     DatabaseReference df;
     // instance for firebase storage and StorageReference
     FirebaseStorage storage;
-    String id,categories;
     StorageReference storageReference;
+    String folderID;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_home);
+        setContentView(R.layout.activity_upload_gallery);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView appbarTV = (TextView)toolbar.findViewById(R.id.appbartextview);
         appbarTV.setText("SNL Tech");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         // initialise views
+        folderID=getIntent().getStringExtra("folderID");
         btnSelect = findViewById(R.id.button2);
         btnUpload = findViewById(R.id.button3);
         imageView = findViewById(R.id.imageView);
         name=findViewById(R.id.editText);
-        about=findViewById(R.id.editText2);
         category=findViewById(R.id.spinner);
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
-        df= FirebaseDatabase.getInstance().getReference();
-        categories=getIntent().getStringExtra("category");
-        id=getIntent().getStringExtra("id");
-        DatabaseReference dref=FirebaseDatabase.getInstance().getReference().child(categories).child(id);
-        FirebaseStorage stor = FirebaseStorage.getInstance();
-        stor.getReference().child("images/"+id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
-                String url = uri.toString();
-                //Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                Glide.with(EditInfo.this).load(url).into(imageView);
-            }
-        });
-        dref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                name.setText(snapshot.child("Name").getValue(String.class));
-                about.setText(snapshot.child("About").getValue(String.class));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        df= FirebaseDatabase.getInstance().getReference().child("file").child(folderID);
         // on pressing btnSelect SelectImage() is called
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,10 +90,11 @@ public class EditInfo extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(about.getText())){
-                    Toast.makeText(EditInfo.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(name.getText())){
+                    Toast.makeText(UploadGallery.this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 }else{
-                    uploadImage(id);}
+                    String pushed=df.push().getKey();
+                    uploadImage(pushed);}
             }
         });
     }
@@ -125,7 +105,7 @@ public class EditInfo extends AppCompatActivity {
 
         // Defining Implicit Intent to mobile gallery
         Intent intent = new Intent();
-        intent.setType("image/*");
+        intent.setType("image/*video/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(
                 Intent.createChooser(
@@ -155,7 +135,11 @@ public class EditInfo extends AppCompatActivity {
                 && data.getData() != null) {
 
             // Get the Uri of data
-            filePath = data.getData();
+           filePath = data.getData();
+            /*VideoView videoView=findViewById(R.id.videoView);
+            videoView.setVideoURI(filePath);
+            videoView.requestFocus();
+            videoView.start();*/
             try {
 
                 // Setting image on image view using Bitmap
@@ -172,6 +156,28 @@ public class EditInfo extends AppCompatActivity {
                 // Log the exception
                 e.printStackTrace();
             }
+
+
+            Uri uri = data.getData();
+            String uriString = uri.toString();
+            File myFile = new File(uriString);
+            String displayName = null;
+            if (uriString.startsWith("content://")) {
+                Cursor cursor = null;
+                try {
+                    cursor = this.getContentResolver().query(uri, null, null, null, null);
+                    if (cursor != null && cursor.moveToFirst()) {
+                        displayName = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    }
+                } finally {
+                    cursor.close();
+                }
+            } else if (uriString.startsWith("file://")) {
+                displayName = myFile.getName();
+            }
+            fileExtension="."+displayName.substring(displayName.lastIndexOf(".")+1);
+            Toast.makeText(this, fileExtension, Toast.LENGTH_SHORT).show();
+
         }
     }
 
@@ -189,7 +195,7 @@ public class EditInfo extends AppCompatActivity {
             // Defining the child of storageReference
             StorageReference ref
                     = storageReference
-                    .child("images/"+pushed);
+                    .child("files/"+folderID+"/"+name.getText().toString()+fileExtension);
             // adding listeners on upload
             // or failure of image
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -201,9 +207,27 @@ public class EditInfo extends AppCompatActivity {
                     // Image uploaded successfully
                     // Dismiss dialog
                     progressDialog.dismiss();
-                    Toast.makeText(EditInfo.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
+                    Toast.makeText(UploadGallery.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
+                    df.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            String last="First";
+                            int i=0;
+                            while (last!=null){
+                                i++;
+                                last=snapshot.child("File"+Integer.toString(i)).getValue(String.class);
+                                if (last!=null) {
+                                }else{
+                                }
+                                }
+                            df.child("File"+i).setValue(name.getText().toString()+fileExtension);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             })
 
@@ -215,7 +239,7 @@ public class EditInfo extends AppCompatActivity {
                             // Error, Image not uploaded
                             progressDialog.dismiss();
                             Toast
-                                    .makeText(EditInfo.this,
+                                    .makeText(UploadGallery.this,
                                             "Failed " + e.getMessage(),
                                             Toast.LENGTH_SHORT)
                                     .show();
@@ -239,9 +263,6 @@ public class EditInfo extends AppCompatActivity {
                                                     + (int)progress + "%");
                                 }
                             });
-        }else{
-            df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-            df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
         }
     }
 }

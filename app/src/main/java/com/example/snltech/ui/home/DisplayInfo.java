@@ -1,4 +1,4 @@
-package com.example.snltech;
+package com.example.snltech.ui.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -11,16 +11,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.snltech.Contact;
+import com.example.snltech.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -31,8 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-
-import static androidx.constraintlayout.motion.widget.MotionScene.TAG;
 
 public class DisplayInfo extends AppCompatActivity {
 ImageView logo;
@@ -56,7 +53,7 @@ ImageView logo;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(DisplayInfo.this,LinkActivity.class);
+                Intent intent=new Intent(DisplayInfo.this, LinkActivity.class);
                 intent.putExtra("id",getIntent().getStringExtra("id"));
                 intent.putExtra("category",getIntent().getStringExtra("category"));
                 startActivity(intent);
@@ -135,7 +132,7 @@ ImageView logo;
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_search : {
-                Intent intent=new Intent(DisplayInfo.this,EditInfo.class);
+                Intent intent=new Intent(DisplayInfo.this, EditInfo.class);
                 intent.putExtra("id",id);
                 intent.putExtra("category",category);
                 startActivity(intent);

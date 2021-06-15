@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".AddHome">
+    tools:context=".ui.gallery.UploadGallery">
     <include
         layout="@layout/app_bar_nosearch"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
+        android:layout_above="@id/button3"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="false"
         android:text="Select " />
@@ -47,29 +47,19 @@
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/editText2"
+        android:layout_below="@id/editText"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
         android:maxHeight="120dp"
-        android:maxWidth="120dp"
         app:srcCompat="@drawable/profile" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner"
-        android:hint="About"
-        android:inputType="textMultiLine|textPersonName"
-        android:lines="5"
-        android:maxLines="5"
-        android:minLines="1"
-        android:singleLine="false" />
 
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageView" />
+        android:layout_height="240dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:layout_below="@id/editText"
+        android:maxHeight="120dp" />
 </RelativeLayout>

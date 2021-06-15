@@ -6,16 +6,44 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@android:mipmap/sym_def_app_icon"
+            android:icon="@drawable/coding"
             android:title="App Manager" />
         <item
+            android:id="@+id/nav_progress"
+            android:icon="@drawable/progressbar"
+            android:title="Progress Bar" />
+        <item
             android:id="@+id/nav_slideshow"
-            android:icon="@android:drawable/ic_input_get"
+            android:icon="@drawable/clipboard"
             android:title="To-do List" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/gallery"
             android:title="@string/menu_gallery" />
+        <item
+            android:id="@+id/nav_resume"
+            android:icon="@drawable/cv"
+            android:title="Resume" />
+        <item
+            android:id="@+id/nav_blog"
+            android:icon="@drawable/writing"
+            android:title="Blog" />
 
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/drawer_item_about"
+            android:icon="@drawable/about"
+            android:title="About" >
+
+        </item>
+        <item
+            android:id="@+id/drawer_item_settings"
+            android:icon="@drawable/settings"
+            android:title="Settings" >
+
+        </item>
     </group>
 </menu>

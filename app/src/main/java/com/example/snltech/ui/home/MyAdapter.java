@@ -1,4 +1,4 @@
-package com.example.snltech;
+package com.example.snltech.ui.home;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,8 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.snltech.Contact;
+import com.example.snltech.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

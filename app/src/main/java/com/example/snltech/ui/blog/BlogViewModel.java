@@ -1,16 +1,16 @@
-package com.example.snltech.ui.slideshow;
+package com.example.snltech.ui.blog;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class BlogViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public BlogViewModel() {
         mText = new MutableLiveData<>();
-      //  mText.setValue("This is To-do list fragment");
+        mText.setValue("This is blog fragment");
     }
 
     public LiveData<String> getText() {

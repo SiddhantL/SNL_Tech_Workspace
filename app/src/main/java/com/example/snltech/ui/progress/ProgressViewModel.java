@@ -1,16 +1,16 @@
-package com.example.snltech.ui.slideshow;
+package com.example.snltech.ui.progress;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class SlideshowViewModel extends ViewModel {
+public class ProgressViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public SlideshowViewModel() {
+    public ProgressViewModel() {
         mText = new MutableLiveData<>();
-      //  mText.setValue("This is To-do list fragment");
+        mText.setValue("This is Progress bar fragment");
     }
 
     public LiveData<String> getText() {

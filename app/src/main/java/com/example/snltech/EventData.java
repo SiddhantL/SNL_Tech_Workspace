@@ -4,12 +4,13 @@ import com.google.firebase.database.IgnoreExtraProperties;
 @IgnoreExtraProperties
 public class EventData {
 
-    private String Adult,Cost,Date,Drinks,Food,Intro,Music,Time,Category,ID,Name,Access;
+    private String Adult,Cost,Date,Drinks,Food,Intro,Time,Category,ID,Name,Access;
+    private Boolean Music;
     public EventData() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public EventData(String Adult, String Cost, String Date, String Drinks, String Food, String Intro, String Music, String Name, String Time, String Category, String ID, String Access) {
+    public EventData(String Adult, String Cost, String Date, String Drinks, String Food, String Intro, Boolean Music, String Name, String Time, String Category, String ID, String Access) {
         this.Adult =Adult;
         this.Cost =Cost;
         this.Date =Date;
@@ -80,11 +81,11 @@ public class EventData {
         Intro = intro;
     }
 
-    public String getMusic() {
+    public Boolean getMusic() {
         return Music;
     }
 
-    public void setMusic(String music) {
+    public void setMusic(Boolean music) {
         Music = music;
     }
 

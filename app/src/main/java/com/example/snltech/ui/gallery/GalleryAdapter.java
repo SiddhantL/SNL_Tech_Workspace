@@ -1,4 +1,4 @@
-package com.example.snltech;
+package com.example.snltech.ui.gallery;
 
 
 import android.content.Context;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.example.snltech.ModelClass;
+import com.example.snltech.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
@@ -20,14 +21,13 @@ import java.util.ArrayList;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class FileAdapter extends RecyclerView.Adapter<FileAdapter.CustomViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.CustomViewHolder> {
 
     private Context context;
     private ArrayList<ModelClass> items;
     String timeformat,day;
     String idEvent;
-    String urls;
-    public FileAdapter(Context context, ArrayList<ModelClass> items) {
+    public GalleryAdapter(Context context, ArrayList<ModelClass> items) {
         this.context = context;
         this.items = items;
     }
@@ -35,7 +35,7 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.CustomViewHold
     @NonNull
     @Override
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.items_file, parent, false));
+        return new CustomViewHolder(LayoutInflater.from(context).inflate(R.layout.items_gallery, parent, false));
     }
 
     @Override
@@ -48,34 +48,23 @@ public class FileAdapter extends RecyclerView.Adapter<FileAdapter.CustomViewHold
               // holder.itemImage.setImageResource(R.drawable.profile);
                holder.name.setText(items.get(position).getData().getName());
             //Toast.makeText(context, "images/" + idEvent + ".png", Toast.LENGTH_SHORT).show();
-            stor.getReference().child("files/"+idEvent+"/"+items.get(position).getData().getName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            stor.getReference().child("images/"+idEvent).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     String url = uri.toString();
                     //Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
                     //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                    Glide.with(context.getApplicationContext()).load(url).into(holder.itemImage);
+               //     Glide.with(context.getApplicationContext()).load(url).into(holder.itemImage);
                 }
             });
         }
         holder.fullitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context,DisplayFiles.class);
-                FirebaseStorage stor = FirebaseStorage.getInstance();
-                stor.getReference().child("files/"+idEvent+"/"+items.get(position).getData().getName()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        String url = uri.toString();
-                        urls=url;}
-                });
-                intent.putExtra("url",urls);
-                intent.putExtra("id",idEvent);
-                intent.putExtra("pos",position+1);
-                intent.putExtra("filename",items.get(position).getData().getName());
-                if (urls!=null) {
-                    context.startActivity(intent);
-                }
+                Intent intent=new Intent(context, GalleryFiles.class);
+                intent.putExtra("id",items.get(position).getData().getID());
+                intent.putExtra("foldername",items.get(position).getData().getName());
+context.startActivity(intent);
             }
         });
     }

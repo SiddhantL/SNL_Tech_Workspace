@@ -1,4 +1,4 @@
-package com.example.snltech;
+package com.example.snltech.ui.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.snltech.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -30,7 +31,8 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class UploadGallery extends AppCompatActivity {
+public class AddHome extends AppCompatActivity {
+
     private Button btnSelect, btnUpload;
 
     // view for image view
@@ -38,8 +40,8 @@ public class UploadGallery extends AppCompatActivity {
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
-    EditText name,about;
-    Spinner category;
+EditText name,about;
+Spinner category;
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
     DatabaseReference df;
@@ -82,10 +84,10 @@ public class UploadGallery extends AppCompatActivity {
             public void onClick(View v)
             {
                 if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(about.getText())){
-                    Toast.makeText(UploadGallery.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddHome.this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 }else{
-                    String pushed=df.push().getKey();
-                    uploadImage(pushed);}
+                String pushed=df.push().getKey();
+                uploadImage(pushed);}
             }
         });
     }
@@ -96,14 +98,14 @@ public class UploadGallery extends AppCompatActivity {
 
         // Defining Implicit Intent to mobile gallery
         Intent intent = new Intent();
-        intent.setType("image/*video/*");
+        intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(
                 Intent.createChooser(
                         intent,
                         "Select Image from here..."),
                 PICK_IMAGE_REQUEST);
-    }
+}
 
     // Override onActivityResult method
     @Override
@@ -125,22 +127,18 @@ public class UploadGallery extends AppCompatActivity {
                 && data != null
                 && data.getData() != null) {
 
+            filePath = data.getData();
             // Get the Uri of data
            /*Video After Selected
-           filePath = data.getData();
             VideoView videoView=findViewById(R.id.videoView);
             videoView.setVideoURI(filePath);
             videoView.requestFocus();
             videoView.start();*/
             try {
-
                 // Setting image on image view using Bitmap
-                Bitmap bitmap = MediaStore
-                        .Images
-                        .Media
-                        .getBitmap(
-                                getContentResolver(),
-                                filePath);
+                Bitmap bitmap = MediaStore.Images.Media
+                        .getBitmap(getContentResolver(),
+                        filePath);
                 imageView.setImageBitmap(bitmap);
             }
 
@@ -170,18 +168,18 @@ public class UploadGallery extends AppCompatActivity {
             // or failure of image
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
-                @Override
-                public void onSuccess(
-                        UploadTask.TaskSnapshot taskSnapshot)
-                {
-                    // Image uploaded successfully
-                    // Dismiss dialog
-                    progressDialog.dismiss();
-                    Toast.makeText(UploadGallery.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
-                }
-            })
+                                @Override
+                                public void onSuccess(
+                                        UploadTask.TaskSnapshot taskSnapshot)
+                                {
+                                    // Image uploaded successfully
+                                    // Dismiss dialog
+                                    progressDialog.dismiss();
+                                    Toast.makeText(AddHome.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
+                                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
+                                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
+                                }
+                            })
 
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -191,7 +189,7 @@ public class UploadGallery extends AppCompatActivity {
                             // Error, Image not uploaded
                             progressDialog.dismiss();
                             Toast
-                                    .makeText(UploadGallery.this,
+                                    .makeText(AddHome.this,
                                             "Failed " + e.getMessage(),
                                             Toast.LENGTH_SHORT)
                                     .show();

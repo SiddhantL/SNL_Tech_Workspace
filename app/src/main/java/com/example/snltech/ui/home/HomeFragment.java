@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.snltech.CustomAdapter;
 import com.example.snltech.EventData;
 import com.example.snltech.ModelClass;
 import com.example.snltech.R;
@@ -37,6 +35,23 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        /*
+        DARK MODE COMPATIBILITY
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+        editor.putBoolean("isDarkModeOn", true);
+        editor.apply();
+        // When user reopens the app
+        // after applying dark/light mode
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }*/
+
         final TextView textView = root.findViewById(R.id.text_home);
         final RecyclerView recyclerView = root.findViewById(R.id.recycleapps);
         items = new ArrayList<>();
@@ -62,7 +77,7 @@ public class HomeFragment extends Fragment {
                                 data.setDrinks("Yes");
                                 data.setFood("Yes");
                                 data.setIntro("This is a Loading Message...");
-                                data.setMusic("Yes");
+                                data.setMusic(false);
                                 data.setName("Loadingsss...");
                                 data.setTime("00:00");
                                 data.setCategory("App");
@@ -109,7 +124,7 @@ public class HomeFragment extends Fragment {
                             data2.setDrinks("Yes");
                             data2.setFood("Yes");
                             data2.setIntro("This is a Loading Message...");
-                            data2.setMusic("Yes");
+                            data2.setMusic(false);
                             data2.setName("Loadingsss...");
                             data2.setTime("00:00");
                             data2.setCategory("Project");
@@ -156,7 +171,7 @@ public class HomeFragment extends Fragment {
                             data3.setDrinks("Yes");
                             data3.setFood("Yes");
                             data3.setIntro("This is a Loading Message...");
-                            data3.setMusic("Yes");
+                            data3.setMusic(false);
                             data3.setName("Loadingsss...");
                             data3.setTime("00:00");
                             data3.setCategory("Idea");
@@ -188,7 +203,7 @@ public class HomeFragment extends Fragment {
             data.setFood("Yes");
             data.setID("");
             data.setIntro("This is a Loading Message...");
-            data.setMusic("Yes");
+            data.setMusic(false);
             data.setName("Loadingsss...");
             data.setTime("00:00");
             data.setCategory("App");
@@ -204,7 +219,7 @@ public class HomeFragment extends Fragment {
             data2.setFood("Yes");
             data2.setID("");
             data2.setIntro("This is a Loading Message...");
-            data2.setMusic("Yes");
+            data2.setMusic(false);
             data2.setName("Loadingsss...");
             data2.setTime("00:00");
             data2.setCategory("Project");
@@ -220,7 +235,7 @@ public class HomeFragment extends Fragment {
             data3.setFood("Yes");
             data3.setID("");
             data3.setIntro("This is a Loading Message...");
-            data3.setMusic("Yes");
+            data3.setMusic(false);
             data3.setName("Loadingsss...");
             data3.setTime("00:00");
             data3.setCategory("Idea");

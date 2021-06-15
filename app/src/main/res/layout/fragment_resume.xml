@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.slideshow.SlideshowFragment"
+    tools:context=".ui.resume.ResumeFragment"
     android:layout_marginTop="50dp">
 
     <TextView
@@ -20,18 +20,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <ProgressBar
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/progress"
-        android:max="100"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:id="@+id/taskrcycle"
-        android:layout_below="@id/progress"
-        />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
@@ -41,4 +30,9 @@
         android:backgroundTint="@android:color/black"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus_white_24dp" />
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

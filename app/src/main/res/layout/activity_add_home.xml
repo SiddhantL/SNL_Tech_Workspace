@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".AddHome">
+    tools:context=".ui.home.AddHome">
     <include
         layout="@layout/app_bar_nosearch"
         android:layout_width="match_parent"

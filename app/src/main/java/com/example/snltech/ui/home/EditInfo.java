@@ -1,15 +1,12 @@
-package com.example.snltech;
+package com.example.snltech.ui.home;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -21,25 +18,24 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.VideoView;
 
+import com.bumptech.glide.Glide;
+import com.example.snltech.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
-import java.util.UUID;
 
-import static android.media.MediaRecorder.VideoSource.CAMERA;
-import static java.security.AccessController.getContext;
-
-public class AddHome extends AppCompatActivity {
-
+public class EditInfo extends AppCompatActivity {
     private Button btnSelect, btnUpload;
 
     // view for image view
@@ -47,13 +43,14 @@ public class AddHome extends AppCompatActivity {
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
-EditText name,about;
-Spinner category;
+    EditText name,about;
+    Spinner category;
     // request code
     private final int PICK_IMAGE_REQUEST = 22;
     DatabaseReference df;
     // instance for firebase storage and StorageReference
     FirebaseStorage storage;
+    String id,categories;
     StorageReference storageReference;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -76,6 +73,31 @@ Spinner category;
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         df= FirebaseDatabase.getInstance().getReference();
+        categories=getIntent().getStringExtra("category");
+        id=getIntent().getStringExtra("id");
+        DatabaseReference dref=FirebaseDatabase.getInstance().getReference().child(categories).child(id);
+        FirebaseStorage stor = FirebaseStorage.getInstance();
+        stor.getReference().child("images/"+id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                String url = uri.toString();
+                //Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
+                Glide.with(EditInfo.this).load(url).into(imageView);
+            }
+        });
+        dref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                name.setText(snapshot.child("Name").getValue(String.class));
+                about.setText(snapshot.child("About").getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         // on pressing btnSelect SelectImage() is called
         btnSelect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,10 +113,9 @@ Spinner category;
             public void onClick(View v)
             {
                 if (TextUtils.isEmpty(name.getText()) || TextUtils.isEmpty(about.getText())){
-                    Toast.makeText(AddHome.this, "Fill all fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditInfo.this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 }else{
-                String pushed=df.push().getKey();
-                uploadImage(pushed);}
+                    uploadImage(id);}
             }
         });
     }
@@ -112,7 +133,7 @@ Spinner category;
                         intent,
                         "Select Image from here..."),
                 PICK_IMAGE_REQUEST);
-}
+    }
 
     // Override onActivityResult method
     @Override
@@ -135,12 +156,7 @@ Spinner category;
                 && data.getData() != null) {
 
             // Get the Uri of data
-           /*Video After Selected
-           filePath = data.getData();
-            VideoView videoView=findViewById(R.id.videoView);
-            videoView.setVideoURI(filePath);
-            videoView.requestFocus();
-            videoView.start();*/
+            filePath = data.getData();
             try {
 
                 // Setting image on image view using Bitmap
@@ -179,18 +195,18 @@ Spinner category;
             // or failure of image
             ref.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
 
-                                @Override
-                                public void onSuccess(
-                                        UploadTask.TaskSnapshot taskSnapshot)
-                                {
-                                    // Image uploaded successfully
-                                    // Dismiss dialog
-                                    progressDialog.dismiss();
-                                    Toast.makeText(AddHome.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
-                                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-                                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
-                                }
-                            })
+                @Override
+                public void onSuccess(
+                        UploadTask.TaskSnapshot taskSnapshot)
+                {
+                    // Image uploaded successfully
+                    // Dismiss dialog
+                    progressDialog.dismiss();
+                    Toast.makeText(EditInfo.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
+                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
+                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
+                }
+            })
 
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -200,7 +216,7 @@ Spinner category;
                             // Error, Image not uploaded
                             progressDialog.dismiss();
                             Toast
-                                    .makeText(AddHome.this,
+                                    .makeText(EditInfo.this,
                                             "Failed " + e.getMessage(),
                                             Toast.LENGTH_SHORT)
                                     .show();
@@ -224,6 +240,9 @@ Spinner category;
                                                     + (int)progress + "%");
                                 }
                             });
+        }else{
+            df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
+            df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
         }
     }
 }
