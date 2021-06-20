@@ -95,5 +95,13 @@ public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.CustomViewHo
             delete=view.findViewById(R.id.imageView2);
         }
     }
+    public void filterList(ArrayList<ModelClass> filterllist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        items = filterllist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
 
 }

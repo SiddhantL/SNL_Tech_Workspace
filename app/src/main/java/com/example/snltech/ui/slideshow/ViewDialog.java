@@ -2,6 +2,7 @@ package com.example.snltech.ui.slideshow;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -25,18 +26,27 @@ public class ViewDialog {
         text.setText(msg);
 
         Button dialogButton = (Button) dialog.findViewById(R.id.btn_dialog);
+        Button dialogClose = (Button) dialog.findViewById(R.id.btn_close);
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("rules");//.child(id);
-                String pushed=dref.push().getKey();
-                dref.child(pushed).child("Rule").setValue(((EditText)dialog.findViewById(R.id.edittext)).getText().toString());
-                dref.child(pushed).child("Key1").setValue("Android");
-                dialog.dismiss();
+                EditText editText = dialog.findViewById(R.id.edittext);
+                EditText editText2 = dialog.findViewById(R.id.edittext2);
+                if (!TextUtils.isEmpty(editText.getText()) || !TextUtils.isEmpty(editText2.getText())) {
+                    DatabaseReference dref = FirebaseDatabase.getInstance().getReference().child("rules");//.child(id);
+                    String pushed = dref.push().getKey();
+                    dref.child(pushed).child("Rule").setValue(editText.getText().toString());
+                    dref.child(pushed).child("Keys").setValue(editText2.getText().toString());
+                    dialog.dismiss();
+                }
             }
-        });
-
+            });
         dialog.show();
-
+    dialogClose.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dialog.dismiss();
+        }
+    });
     }
 }

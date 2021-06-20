@@ -30,16 +30,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/edittext"
         android:layout_below="@id/text_dialog"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edittext2"
+        android:layout_below="@id/edittext"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:text="OK"
         android:id="@+id/btn_dialog"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_below="@+id/edittext"
+        android:layout_below="@+id/edittext2"
+        android:layout_toRightOf="@id/btn_close"
         android:layout_marginBottom="20dp"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffffff" />
+        android:textColor="#ffffff" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:text="Close"
+        android:id="@+id/btn_close"
+        android:layout_below="@+id/edittext2"
+        android:layout_marginBottom="20dp"
+        android:textColor="#ffffff" />
 
 </RelativeLayout>
