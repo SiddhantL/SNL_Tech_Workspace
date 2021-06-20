@@ -76,33 +76,6 @@ public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.CustomViewHo
                         .setNegativeButton("No", dialogClickListener).show();
             }
         });
-        holder.checkBox.setChecked(items.get(position).getData().getMusic());
-        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (!holder.name.getText().toString().equals("Loading...")) {
-                    String states = "";
-                    if (holder.checkBox.isChecked()) {
-                        states = "Yes";
-                    } else {
-                        states = "No";
-                    }
-                    DatabaseReference df = FirebaseDatabase.getInstance().getReference().child("todo").child(items.get(position).getData().getTime()).child(items.get(position).getData().getID());
-                    df.child("Complete").setValue(states);
-                }
-            }
-        });
-        /*holder.fullitem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(context, DisplayInfo.class);
-                intent.putExtra("id",items.get(position).getData().getID());
-                intent.putExtra("category",items.get(position).getData().getCategory());
-
-context.startActivity(intent);
-
-            }
-        });*/
     }
     @Override
     public int getItemCount() {
@@ -122,4 +95,5 @@ context.startActivity(intent);
             delete=view.findViewById(R.id.imageView2);
         }
     }
+
 }

@@ -48,12 +48,12 @@ public class ProgressFragment extends Fragment {
         });*/
         final RecyclerView recyclerView = root.findViewById(R.id.recycleapps);
         items = new ArrayList<>();
-        root.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+        /*root.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), AddHome.class));
             }
-        });
+        });*/
         final CustomProgressAdapter adapter = new CustomProgressAdapter(getContext(), items);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);

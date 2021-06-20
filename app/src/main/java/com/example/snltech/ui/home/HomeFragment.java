@@ -266,6 +266,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem mSearchMenuItem = menu.findItem(R.id.menu_action_search);
-        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+//        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
     }
 }
