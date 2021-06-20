@@ -1,5 +1,6 @@
 package com.example.snltech.ui.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -55,6 +56,12 @@ public class HomeFragment extends Fragment {
         final TextView textView = root.findViewById(R.id.text_home);
         final RecyclerView recyclerView = root.findViewById(R.id.recycleapps);
         items = new ArrayList<>();
+        root.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(),AddHome.class));
+            }
+        });
         final CustomAdapter adapter = new CustomAdapter(getContext(), items);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);

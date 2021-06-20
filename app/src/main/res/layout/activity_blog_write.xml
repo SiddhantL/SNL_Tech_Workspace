@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".ui.gallery.UploadGallery">
+
+    <include
+        layout="@layout/app_bar_nosearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_marginTop="45dp"
+        android:inputType="textPersonName"
+        android:hint="Name" />
+<EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/editText"
+    android:inputType="textMultiLine"
+    android:maxLines="10"
+    android:hint="Content"
+    android:id="@+id/content"/>
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/button3"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="false"
+        android:text="Select " />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:text="Submit" />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:id="@+id/recycle"
+    android:layout_below="@+id/content"/>
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        android:adjustViewBounds="true"
+        android:visibility="gone"
+        android:layout_below="@id/editText"
+        android:maxHeight="120dp" />
+</RelativeLayout>

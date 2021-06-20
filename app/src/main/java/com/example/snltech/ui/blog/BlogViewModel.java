@@ -10,7 +10,7 @@ public class BlogViewModel extends ViewModel {
 
     public BlogViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is blog fragment");
+      //  mText.setValue("This is blog fragment");
     }
 
     public LiveData<String> getText() {

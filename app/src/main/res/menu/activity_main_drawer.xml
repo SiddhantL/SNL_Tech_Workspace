@@ -13,10 +13,6 @@
             android:icon="@drawable/progressbar"
             android:title="Progress Bar" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/clipboard"
-            android:title="To-do List" />
-        <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/gallery"
             android:title="@string/menu_gallery" />
@@ -24,6 +20,10 @@
             android:id="@+id/nav_resume"
             android:icon="@drawable/cv"
             android:title="Resume" />
+        <item
+            android:id="@+id/nav_slideshow"
+            android:icon="@drawable/clipboard"
+            android:title="Rules" />
         <item
             android:id="@+id/nav_blog"
             android:icon="@drawable/writing"
