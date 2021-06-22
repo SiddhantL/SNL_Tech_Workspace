@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
+    android:background="@color/bgColor"
     tools:context=".ui.gallery.DisplayFiles">
     <include
         layout="@layout/app_bar_nosearch"
@@ -24,7 +24,7 @@
         android:id="@+id/text"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:textColor="#fff"
+        android:textColor="@color/textColor"
         android:textSize="20sp"
         android:text="File 1"/>
 

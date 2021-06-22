@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".ui.gallery.GalleryFragment">
 
     <TextView
@@ -60,7 +61,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="@android:color/black"
+        android:backgroundTint="@color/textColor"
+        app:borderWidth="0dp"
+        android:tint="@color/toolbarbgColor"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus_white_24dp" />
 </RelativeLayout>

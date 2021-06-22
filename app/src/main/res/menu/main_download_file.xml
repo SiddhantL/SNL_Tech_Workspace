@@ -6,7 +6,7 @@
         android:orderInCategory="1"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_save"
-        android:iconTint="#000"
-        android:title="Download"/>
+        app:iconTint="@color/textColor"
+        android:title="Save"/>
 
 </menu>

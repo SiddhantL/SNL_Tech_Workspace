@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/bgColor"
     tools:context=".ui.home.DisplayInfo">
 
     <include
@@ -33,12 +34,13 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/textColor"
+        app:borderWidth="0dp"
+        android:tint="@color/toolbarbgColor"
         android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@android:color/black"
-        app:srcCompat="@drawable/add" />
+        app:srcCompat="@drawable/ic_plus_white_24dp" />
 
     <TextView
         android:id="@+id/title"
@@ -47,7 +49,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/cards"
         android:text="Title"
-        android:textColor="#000000"
+        android:textColor="@color/textColor"
         android:textSize="30sp" />
 
     <TextView
@@ -56,6 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:text="TextView"
+        android:textColor="#cdcdcd"
         android:textAlignment="center"
         android:textSize="24sp" />
 

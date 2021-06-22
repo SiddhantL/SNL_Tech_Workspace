@@ -13,6 +13,8 @@ import android.widget.TextView;
 
 import com.example.snltech.Contact;
 import com.example.snltech.R;
+import com.example.snltech.ui.progress.DisplayTask;
+import com.example.snltech.ui.progress.ViewDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,53 +67,35 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ContactHolder> {
         holder.deletelink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String category=holder.categorytv.getText().toString();
-                final String id=holder.idtv.getText().toString();
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                final String category = holder.categorytv.getText().toString();
+                final String id = holder.idtv.getText().toString();
+                final DatabaseReference drefcheck = FirebaseDatabase.getInstance().getReference().child(category).child(id);
+                drefcheck.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                final DatabaseReference drefcheck=FirebaseDatabase.getInstance().getReference().child(category).child(id);
-                                drefcheck.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        String last="First";
-                                        String alttext="First";
-                                        int i=0;
-                                        while (last!=null){
-                                            i++;
-                                            last=snapshot.child("Link"+Integer.toString(i)).getValue(String.class);
-                                            alttext=snapshot.child("Alttext"+Integer.toString(i)).getValue(String.class);
-                                            if (last!=null) {
-                                                if (alttext.equals(holder.txtName.getText().toString()) && last.equals(holder.txtNumber.getText().toString())) {
-                                                    drefcheck.child("Link" + Integer.toString(i)).setValue("");
-                                                    drefcheck.child("Alttext" + Integer.toString(i)).setValue("Deleted");
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        String last = "First";
+                        String alttext = "First";
+                        int i = 0;
+                        while (last != null) {
+                            i++;
+                            last = snapshot.child("Link" + Integer.toString(i)).getValue(String.class);
+                            alttext = snapshot.child("Alttext" + Integer.toString(i)).getValue(String.class);
+                            if (last != null) {
+                                if (alttext.equals(holder.txtName.getText().toString()) && last.equals(holder.txtNumber.getText().toString())) {
+                                    com.example.snltech.ui.home.DeleteDialog alerts = new DeleteDialog();
+                                    alerts.showDialog(mContext, id, drefcheck, i);
+                                }
+                            }
                         }
                     }
-                };
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
-            }
-        });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+        }
+            });
 holder.layout.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {

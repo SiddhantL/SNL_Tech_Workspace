@@ -1,17 +1,22 @@
 package com.example.snltech.ui.home;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -21,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.snltech.EventData;
 import com.example.snltech.ModelClass;
 import com.example.snltech.R;
+import com.example.snltech.ui.slideshow.SlideshowViewModel;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,31 +34,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
     ArrayList<ModelClass> items,items2,items3;
+    SearchView searchView;
+    LinearLayoutManager lmanager;
+    CustomAdapter adapter,adapter2,adapter3;
+    private SearchView.OnQueryTextListener queryTextListener;
+    private SlideshowViewModel slideshowViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-
-        /*
-        DARK MODE COMPATIBILITY
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
-        final SharedPreferences.Editor editor = sharedPreferences.edit();
-        final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
-        editor.putBoolean("isDarkModeOn", true);
-        editor.apply();
-        // When user reopens the app
-        // after applying dark/light mode
-        if (isDarkModeOn) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        }
-        else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }*/
-
+setHasOptionsMenu(true);
         final TextView textView = root.findViewById(R.id.text_home);
         final RecyclerView recyclerView = root.findViewById(R.id.recycleapps);
         items = new ArrayList<>();
@@ -62,10 +58,11 @@ public class HomeFragment extends Fragment {
                 startActivity(new Intent(getContext(),AddHome.class));
             }
         });
-        final CustomAdapter adapter = new CustomAdapter(getContext(), items);
+        adapter = new CustomAdapter(getContext(), items);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        lmanager=new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(lmanager);
         final DatabaseReference dapps= FirebaseDatabase.getInstance().getReference("App");
         dapps.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -109,7 +106,7 @@ public class HomeFragment extends Fragment {
         });
         RecyclerView recyclerView2 = root.findViewById(R.id.recycleappsproject);
         items2 = new ArrayList<>();
-        final CustomAdapter adapter2 = new CustomAdapter(getContext(), items2);
+        adapter2 = new CustomAdapter(getContext(), items2);
         recyclerView2.setAdapter(adapter2);
         recyclerView2.setNestedScrollingEnabled(false);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -156,7 +153,7 @@ public class HomeFragment extends Fragment {
         });
         RecyclerView recyclerView3 = root.findViewById(R.id.recycleappsidea);
         items3 = new ArrayList<>();
-        final CustomAdapter adapter3 = new CustomAdapter(getContext(), items3);
+        adapter3 = new CustomAdapter(getContext(), items3);
         recyclerView3.setAdapter(adapter3);
         recyclerView3.setNestedScrollingEnabled(false);
         recyclerView3.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -259,13 +256,88 @@ public class HomeFragment extends Fragment {
 
     }
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchItem != null) {
+            searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+                    filter(newText);
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
     }
+
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem mSearchMenuItem = menu.findItem(R.id.menu_action_search);
-//        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_search:
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
+    }
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<ModelClass> filteredlist = new ArrayList<>();
+        ArrayList<ModelClass> filteredlist2 = new ArrayList<>();
+        ArrayList<ModelClass> filteredlist3= new ArrayList<>();
+        // running a for loop to compare elements.
+        for (ModelClass item : items) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getData().getName().toLowerCase().contains(text.toLowerCase())||item.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        for (ModelClass item2 : items2) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item2.getData().getName().toLowerCase().contains(text.toLowerCase())||item2.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist2.add(item2);
+            }
+        }
+        for (ModelClass item3 : items3) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item3.getData().getName().toLowerCase().contains(text.toLowerCase())||item3.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist3.add(item3);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            adapter.filterList(filteredlist);
+            adapter2.filterList(filteredlist2);
+            adapter3.filterList(filteredlist3);
+        }
     }
 }

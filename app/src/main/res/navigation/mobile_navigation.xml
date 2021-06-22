@@ -40,4 +40,15 @@
         android:name="com.example.snltech.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/drawer_item_about"
+        android:name="com.example.snltech.ui.about.AboutFragment"
+        android:label="Blog"
+        tools:layout="@layout/fragment_blog" />
+    <fragment
+        android:id="@+id/drawer_item_settings"
+        android:name="com.example.snltech.ui.settings.SettingsFragment"
+        android:label="@string/menu_slideshow"
+        tools:layout="@layout/fragment_slideshow" />
 </navigation>

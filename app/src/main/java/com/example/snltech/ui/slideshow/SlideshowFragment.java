@@ -57,7 +57,7 @@ public class SlideshowFragment extends Fragment {
             public void onClick(View view) {
 
                 ViewDialog alerts = new ViewDialog();
-                alerts.showDialog(getActivity(),"Hi");
+                alerts.showDialog(getActivity(),"Add a Rule");
             }
         });
 

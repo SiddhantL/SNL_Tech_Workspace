@@ -1,8 +1,14 @@
 package com.example.snltech.ui.progress;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -11,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -33,6 +40,9 @@ public class ProgressFragment extends Fragment {
 
     private com.example.snltech.ui.progress.ProgressViewModel slideshowViewModel;
     ArrayList<ModelClass> items,items2,items3;
+    SearchView searchView;
+    private SearchView.OnQueryTextListener queryTextListener;
+    CustomProgressAdapter adapter,adapter2,adapter3;
     int count=0;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -48,13 +58,14 @@ public class ProgressFragment extends Fragment {
         });*/
         final RecyclerView recyclerView = root.findViewById(R.id.recycleapps);
         items = new ArrayList<>();
+        setHasOptionsMenu(true);
         /*root.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getContext(), AddHome.class));
             }
         });*/
-        final CustomProgressAdapter adapter = new CustomProgressAdapter(getContext(), items);
+        adapter = new CustomProgressAdapter(getContext(), items);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -118,7 +129,7 @@ public class ProgressFragment extends Fragment {
         });
         RecyclerView recyclerView2 = root.findViewById(R.id.recycleappsproject);
         items2 = new ArrayList<>();
-        final CustomProgressAdapter adapter2 = new CustomProgressAdapter(getContext(), items2);
+        adapter2 = new CustomProgressAdapter(getContext(), items2);
         recyclerView2.setAdapter(adapter2);
         recyclerView2.setNestedScrollingEnabled(false);
         recyclerView2.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -182,7 +193,7 @@ public class ProgressFragment extends Fragment {
        });
         RecyclerView recyclerView3 = root.findViewById(R.id.recycleappsidea);
         items3 = new ArrayList<>();
-        final CustomProgressAdapter adapter3 = new CustomProgressAdapter(getContext(), items3);
+        adapter3 = new CustomProgressAdapter(getContext(), items3);
         recyclerView3.setAdapter(adapter3);
         recyclerView3.setNestedScrollingEnabled(false);
         recyclerView3.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -255,7 +266,7 @@ public class ProgressFragment extends Fragment {
             data.setIntro("This is a Loading Message...");
             data.setMusic(false);
             data.setName("Loadingsss...");
-            data.setTime("00:00");
+            data.setTime("0");
             data.setCategory("App");
             items.add(new ModelClass(data));
             adapter.notifyDataSetChanged();
@@ -271,7 +282,7 @@ public class ProgressFragment extends Fragment {
             data2.setIntro("This is a Loading Message...");
             data2.setMusic(false);
             data2.setName("Loadingsss...");
-            data2.setTime("00:00");
+            data2.setTime("0");
             data2.setCategory("Project");
             items2.add(new ModelClass(data2));
             adapter2.notifyDataSetChanged();
@@ -287,11 +298,96 @@ public class ProgressFragment extends Fragment {
             data3.setIntro("This is a Loading Message...");
             data3.setMusic(false);
             data3.setName("Loadingsss...");
-            data3.setTime("00:00");
+            data3.setTime("0");
             data3.setCategory("Idea");
             items3.add(new ModelClass(data3));
             adapter3.notifyDataSetChanged();
         }*/
         return root;
+    }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+        MenuItem searchItem = menu.findItem(R.id.menu_action_search);
+        SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
+
+        if (searchItem != null) {
+            searchView = (androidx.appcompat.widget.SearchView) searchItem.getActionView();
+        }
+        if (searchView != null) {
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
+
+            queryTextListener = new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    Log.i("onQueryTextChange", newText);
+                    filter(newText);
+                    return true;
+                }
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Log.i("onQueryTextSubmit", query);
+
+                    return true;
+                }
+            };
+            searchView.setOnQueryTextListener(queryTextListener);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_search:
+                // Not implemented here
+                return false;
+            default:
+                break;
+        }
+        searchView.setOnQueryTextListener(queryTextListener);
+        return super.onOptionsItemSelected(item);
+    }
+    private void filter(String text) {
+        // creating a new array list to filter our data.
+        ArrayList<ModelClass> filteredlist = new ArrayList<>();
+        ArrayList<ModelClass> filteredlist2 = new ArrayList<>();
+        ArrayList<ModelClass> filteredlist3= new ArrayList<>();
+        // running a for loop to compare elements.
+        for (ModelClass item : items) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item.getData().getName().toLowerCase().contains(text.toLowerCase())||item.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist.add(item);
+            }
+        }
+        for (ModelClass item2 : items2) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item2.getData().getName().toLowerCase().contains(text.toLowerCase())||item2.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist2.add(item2);
+            }
+        }
+        for (ModelClass item3 : items3) {
+            // checking if the entered string matched with any item of our recycler view.
+            if (item3.getData().getName().toLowerCase().contains(text.toLowerCase())||item3.getData().getIntro().toLowerCase().contains(text.toLowerCase())) {
+                // if the item is matched we are
+                // adding it to our filtered list.
+                filteredlist3.add(item3);
+            }
+        }
+        if (filteredlist.isEmpty()) {
+            // if no item is added in filtered list we are
+            // displaying a toast message as no data found.
+            Toast.makeText(getContext(), "No Data Found..", Toast.LENGTH_SHORT).show();
+        } else {
+            // at last we are passing that filtered
+            // list to our adapter class.
+            adapter.filterList(filteredlist);
+            adapter2.filterList(filteredlist2);
+            adapter3.filterList(filteredlist3);
+        }
     }
 }

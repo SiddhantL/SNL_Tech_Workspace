@@ -2,11 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="370dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="9dp"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     android:layout_marginTop="9dp"
+    android:background="@drawable/circular_blog"
     android:id="@+id/fullitem"
     android:layout_centerHorizontal="true"
     android:elevation="10dp">
@@ -28,8 +29,9 @@
             android:layout_below="@+id/item_images"
             android:layout_centerHorizontal="true"
             android:text="Title"
+            android:fontFamily="@font/montserrat"
             android:textAlignment="center"
-            android:textColor="#08B3B9"
+            android:textColor="@color/textColor"
             android:textSize="30sp" />
 
         <TextView
@@ -40,7 +42,10 @@
             android:layout_centerHorizontal="true"
             android:ellipsize="end"
             android:maxLines="3"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/montserrat"
             android:text="Content\nHi\nBye"
+            android:textColor="@color/textColor"
             android:textAlignment="center"
             android:textSize="24sp" />
 </RelativeLayout>

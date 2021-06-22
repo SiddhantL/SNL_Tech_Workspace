@@ -1,15 +1,21 @@
 package com.example.snltech;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.example.snltech.ui.home.AddHome;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.shape.CornerFamily;
+import com.google.android.material.shape.MaterialShapeDrawable;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -31,13 +37,32 @@ public class MainActivity extends AppCompatActivity {
         TextView appbarTV = (TextView)toolbar.findViewById(R.id.appbartextview);
         appbarTV.setText("SNL Tech");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, AddHome.class));
-            }
-        });
+/*
+Boolean dmode=false;
+        int nightModeFlags =
+                MainActivity.this.getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                dmode=true;
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                dmode=false;
+                break;
+
+            case Configuration.UI_MODE_NIGHT_UNDEFINED:
+                dmode=false;
+                break;
+        }*/
+        SharedPreferences sharedPreferences = getSharedPreferences("sharedPrefs", MODE_PRIVATE);
+        final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
+        if (isDarkModeOn) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -49,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        float radius = getResources().getDimension(R.dimen.round_corners);
+        float radiusBig = getResources().getDimension(R.dimen.round_corners_big);
+        MaterialShapeDrawable navViewBackground = (MaterialShapeDrawable) navigationView.getBackground();
+        navViewBackground.setShapeAppearanceModel(
+                navViewBackground.getShapeAppearanceModel()
+                        .toBuilder()
+                        .setTopRightCorner(CornerFamily.ROUNDED,radiusBig)
+                        .setBottomRightCorner(CornerFamily.ROUNDED,radius)
+                        .build());
     }
 
     @Override

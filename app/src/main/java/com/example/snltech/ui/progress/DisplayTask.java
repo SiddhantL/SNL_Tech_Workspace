@@ -101,31 +101,8 @@ public class DisplayTask extends AppCompatActivity {
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(DisplayTask.this);
-                final EditText edittext = new EditText(DisplayTask.this);
-                //alert.setMessage("");
-                alert.setTitle("Enter Task");
-
-                alert.setView(edittext);
-
-                alert.setPositiveButton("Add Task", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        String YouEditTextValue = edittext.getText().toString();
-                        //Toast.makeText(getContext(), YouEditTextValue, Toast.LENGTH_SHORT).show();
-                        DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("todo").child(id);
-                        String pushed=dref.push().getKey();
-                        dref.child(pushed).child("Task").setValue(YouEditTextValue);
-                        dref.child(pushed).child("Complete").setValue("No");
-                    }
-                });
-
-                alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        // what ever you want to do with No option.
-                    }
-                });
-
-                alert.show();
+                com.example.snltech.ui.progress.ViewDialog alerts = new ViewDialog();
+                alerts.showDialog(DisplayTask.this,id);
             }
         });
         return ;

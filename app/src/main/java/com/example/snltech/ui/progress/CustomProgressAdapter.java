@@ -80,10 +80,12 @@ holder.name.setText(items.get(position).getData().getName());
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     total=Integer.parseInt(Long.toString(snapshot.getChildrenCount()));
-                    comp=Integer.parseInt(items.get(position).getData().getTime());
+                    try {
+                        comp = Integer.parseInt(items.get(position).getData().getTime());
                     float perc = comp / total;
                     perc = perc * 100;
                     holder.pb.setProgress((int) perc);
+                    }catch (Exception e){}
                 }
 
                 @Override
@@ -120,5 +122,13 @@ context.startActivity(intent);
             fullitem=view.findViewById(R.id.fullitem);
             pb=view.findViewById(R.id.progressBar);
         }
+    }
+    public void filterList(ArrayList<ModelClass> filterllist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        items = filterllist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
     }
 }

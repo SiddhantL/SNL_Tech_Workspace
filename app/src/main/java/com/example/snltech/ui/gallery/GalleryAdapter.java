@@ -86,4 +86,12 @@ context.startActivity(intent);
             fullitem=view.findViewById(R.id.fullitem);
         }
     }
+    public void filterList(ArrayList<ModelClass> filterllist) {
+        // below line is to add our filtered
+        // list in our course array list.
+        items = filterllist;
+        // below line is to notify our adapter
+        // as change in recycler view data.
+        notifyDataSetChanged();
+    }
 }

@@ -27,6 +27,6 @@
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/item_images"
             android:text="Loading..."
-            android:textColor="#08B3B9"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 </RelativeLayout>

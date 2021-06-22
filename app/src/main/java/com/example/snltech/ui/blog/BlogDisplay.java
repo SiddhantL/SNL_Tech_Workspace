@@ -2,6 +2,7 @@ package com.example.snltech.ui.blog;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,6 +34,11 @@ ImageView displayImage;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_blog_display);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        TextView appbarTV = (TextView)toolbar.findViewById(R.id.appbartextview);
+        appbarTV.setText("SNL Tech");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         id=getIntent().getStringExtra("id");
         topic=findViewById(R.id.topic);
         content=findViewById(R.id.content);

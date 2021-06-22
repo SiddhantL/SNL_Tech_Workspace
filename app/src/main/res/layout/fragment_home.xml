@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment"
-    android:background="@android:color/white"
-    android:layout_marginTop="45sp">
+    android:background="@color/bgColor"
+    android:layout_marginTop="50dp">
 <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
@@ -14,12 +14,14 @@
         android:id="@+id/text_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
         android:layout_marginEnd="8dp"
+        android:fontFamily="@font/righteous_regular"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:text="Apps"
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleapps"
@@ -30,14 +32,15 @@
         android:id="@+id/text_project"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
+        android:fontFamily="@font/righteous_regular"
         android:layout_below="@id/recycleapps"
         android:text="Project"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleappsproject"
@@ -48,14 +51,15 @@
         android:id="@+id/text_idea"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@android:color/black"
+        android:textColor="@color/textColor"
+        android:fontFamily="@font/righteous_regular"
         android:text="Idea"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_below="@id/recycleappsproject"
         android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:textSize="20dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleappsidea"
@@ -68,7 +72,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:backgroundTint="@android:color/black"
+        android:backgroundTint="@color/textColor"
+        app:borderWidth="0dp"
+        android:tint="@color/toolbarbgColor"
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@drawable/ic_plus_white_24dp" />
 </RelativeLayout>

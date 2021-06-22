@@ -10,8 +10,14 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.progress.DisplayTask"></activity>
-        <activity android:name=".ui.blog.BlogDisplay" />
+        <activity android:name=".ui.progress.DisplayTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity"></activity>
+        <activity android:name=".ui.blog.BlogDisplay"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.blog.BlogWrite"
             android:screenOrientation="portrait"

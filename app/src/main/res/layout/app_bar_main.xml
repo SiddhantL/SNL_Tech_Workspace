@@ -20,7 +20,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="#fff"
+        android:background="@color/toolbarbgColor"
         app:layout_anchor="@+id/appBarLayout"
         app:layout_anchorGravity="center"
         app:theme="@style/ToolbarThemeWhite"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/appbartextview"
             android:fontFamily="@font/righteous_regular"
-            android:textColor="#000"
+            android:textColor="@color/textColor"
             android:text="SNL Tech"
             android:textSize="25sp"/>
     </androidx.appcompat.widget.Toolbar>

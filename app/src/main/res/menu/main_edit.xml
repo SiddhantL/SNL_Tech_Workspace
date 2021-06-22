@@ -6,13 +6,13 @@
         android:orderInCategory="1"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_delete"
-        android:iconTint="#000"
-        android:title="Edit"/>
+        app:iconTint="@color/textColor"
+        android:title="Delete"/>
     <item
         android:id="@+id/menu_action_search"
         android:orderInCategory="1"
         app:showAsAction="always"
         android:icon="@android:drawable/ic_menu_edit"
-        android:iconTint="#000"
+        app:iconTint="@color/textColor"
         android:title="Edit"/>
 </menu>

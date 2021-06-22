@@ -18,7 +18,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginRight="24dp"
             android:text="Loading..."
-            android:textColor="#08B3B9"
+            android:textColor="@color/textColor"
             android:textSize="20sp" />
 
         <ImageView

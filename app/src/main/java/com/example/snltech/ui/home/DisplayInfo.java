@@ -20,6 +20,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.snltech.Contact;
 import com.example.snltech.R;
+import com.example.snltech.ui.progress.DisplayTask;
+import com.example.snltech.ui.progress.ViewDialog;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -132,6 +134,7 @@ ImageView logo;
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_action_search : {
+                //Edit
                 Intent intent=new Intent(DisplayInfo.this, EditInfo.class);
                 intent.putExtra("id",id);
                 intent.putExtra("category",category);
@@ -139,26 +142,8 @@ ImageView logo;
                 return true;
             }
             case R.id.menu_action_delete : {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                DatabaseReference dref=FirebaseDatabase.getInstance().getReference().child(category);
-                                dref.child(id).removeValue();
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(DisplayInfo.this);
-                builder.setMessage("Are you sure you want to delete this "+category+"?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
+                com.example.snltech.ui.home.DeleteApp alerts = new DeleteApp();
+                alerts.showDialog(DisplayInfo.this,category,id);
                 return true;
             }
         }

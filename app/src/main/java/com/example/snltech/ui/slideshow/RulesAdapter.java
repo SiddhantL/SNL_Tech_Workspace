@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.snltech.ModelClass;
 import com.example.snltech.R;
+import com.example.snltech.ui.progress.DisplayTask;
+import com.example.snltech.ui.progress.ViewDialog;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -54,26 +56,8 @@ public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.CustomViewHo
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //Yes button clicked
-                                DatabaseReference df = FirebaseDatabase.getInstance().getReference().child("todo").child(items.get(position).getData().getTime()).child(items.get(position).getData().getID());
-                                df.removeValue();
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                //No button clicked
-                                break;
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                        .setNegativeButton("No", dialogClickListener).show();
+                com.example.snltech.ui.slideshow.DeleteDialog alerts = new DeleteDialog();
+                alerts.showDialog(context,items.get(position).getData().getID());
             }
         });
     }
