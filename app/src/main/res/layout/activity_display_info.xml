@@ -11,13 +11,35 @@
         layout="@layout/app_bar_nosearch"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/textColor"
+        app:borderWidth="0dp"
+        android:tint="@color/toolbarbgColor"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@drawable/ic_plus_white_24dp" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
+        <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/cards"
+                android:layout_centerHorizontal="true">
     <androidx.cardview.widget.CardView
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:cardCornerRadius="50dp"
-        android:id="@+id/cards"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
+        android:layout_centerInParent="true"
         android:elevation="10dp">
         <ImageView
             android:id="@+id/item_images"
@@ -30,23 +52,22 @@
             android:scaleType="fitXY">
         </ImageView>
     </androidx.cardview.widget.CardView>
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/textColor"
-        app:borderWidth="0dp"
-        android:tint="@color/toolbarbgColor"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_plus_white_24dp" />
-
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/CircularDeterminateProgressBar"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_centerInParent="true"
+                    android:padding="-10dp"
+                    android:scaleX="1.35"
+                    android:scaleY="1.35" />
+            </RelativeLayout>
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/righteous_regular"
         android:layout_below="@+id/cards"
         android:text="Title"
         android:textColor="@color/textColor"
@@ -58,7 +79,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:text="TextView"
-        android:textColor="#cdcdcd"
+        android:fontFamily="@font/montserrat"
+        android:textColor="#121212"
         android:textAlignment="center"
         android:textSize="24sp" />
 
@@ -67,4 +89,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/about" />
+    <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/gallery"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_below="@+id/links" />
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

@@ -41,8 +41,8 @@
         </item>
         <item
             android:id="@+id/drawer_item_settings"
-            android:icon="@drawable/settings"
-            android:title="Settings" >
+            android:icon="?attr/buttonface_picture"
+            android:title="@string/mode_theme" >
 
         </item>
     </group>

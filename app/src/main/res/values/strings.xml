@@ -10,9 +10,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="mode_theme">Dark Mode</string>
 
     <string name="home_second">Home Second</string>
     <string-array name="array_name">
+
         <item>App</item>
         <item>Idea</item>
         <item>Project</item>

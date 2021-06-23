@@ -48,7 +48,7 @@
             android:id="@+id/btn_dialog"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:background="@color/textColor"
+            android:background="@drawable/circular_button"
             android:layout_marginRight="5dp"
             android:text="Create"
             android:textColor="@color/toolbarbgColor" />
@@ -58,7 +58,7 @@
             android:layout_height="50dp"
             android:text="Cancel"
             android:layout_toRightOf="@id/btn_dialog"
-            android:background="@color/textColor"
+            android:background="@drawable/circular_button"
             android:textColor="@color/toolbarbgColor" />
 
     </RelativeLayout>

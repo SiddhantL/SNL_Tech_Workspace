@@ -18,7 +18,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50sp"
-        android:background="@color/bgColor"
+        android:background="@color/toolbarbgColor"
         app:layout_anchor="@+id/appBarLayout"
         app:layout_anchorGravity="center"
         app:theme="@style/ToolbarThemeWhite"

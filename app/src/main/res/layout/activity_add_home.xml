@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/bgColor"
     tools:context=".ui.home.AddHome">
     <include
         layout="@layout/app_bar_nosearch"
@@ -14,33 +14,47 @@
         android:id="@+id/spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:layout_below="@id/editText"
         android:entries="@array/array_name" />
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="45dp"
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
         android:hint="Name" />
-
+<RelativeLayout
+    android:id="@+id/button2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/circular_button"
+    android:layout_centerHorizontal="true"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:layout_marginTop="20dp"
+    android:paddingLeft="50dp"
+    android:paddingRight="50dp"
+    android:layout_below="@id/imageView">
     <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="false"
-        android:text="Select " />
-
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:background="@drawable/ic_upload"/>
+</RelativeLayout>
     <Button
         android:id="@+id/button3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
+        android:textColor="@color/bgColor"
+        android:textSize="18dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/circular_button"
         android:text="Submit" />
 
     <ImageView
@@ -51,8 +65,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:adjustViewBounds="true"
-        android:maxHeight="120dp"
-        android:maxWidth="120dp"
+        android:maxHeight="200dp"
+        android:maxWidth="200dp"
         app:srcCompat="@drawable/profile" />
 
     <EditText
@@ -61,6 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/spinner"
         android:hint="About"
+        android:textSize="20dp"
+        android:fontFamily="@font/montserrat"
         android:inputType="textMultiLine|textPersonName"
         android:lines="5"
         android:maxLines="5"

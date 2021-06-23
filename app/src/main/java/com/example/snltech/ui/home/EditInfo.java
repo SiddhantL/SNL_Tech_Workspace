@@ -83,7 +83,7 @@ public class EditInfo extends AppCompatActivity {
                 String url = uri.toString();
                 //Toast.makeText(context, url, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                Glide.with(EditInfo.this).load(url).into(imageView);
+                Glide.with(getApplicationContext()).load(url).into(imageView);
             }
         });
         dref.addListenerForSingleValueEvent(new ValueEventListener() {

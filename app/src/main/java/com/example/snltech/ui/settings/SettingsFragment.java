@@ -55,6 +55,7 @@ public class SettingsFragment extends Fragment {
             public void onChanged(@Nullable String s) {
             }
         });
+        getFragmentManager().popBackStack();
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("sharedPrefs", MODE_PRIVATE);
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         final boolean isDarkModeOn = sharedPreferences.getBoolean("isDarkModeOn", false);
@@ -78,10 +79,20 @@ public class SettingsFragment extends Fragment {
         if (isDarkModeOn) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             switch1.setChecked(true);
+
+
+            editor.putBoolean("isDarkModeOn", false);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            editor.apply();
         }
         else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             switch1.setChecked(false);
+
+
+            editor.putBoolean("isDarkModeOn", true);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            editor.apply();
         }
         return root;
     }

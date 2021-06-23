@@ -23,7 +23,8 @@ public class ViewDialog {
 
         TextView text = (TextView) dialog.findViewById(R.id.text_dialog);
         text.setText("Add a Task");
-
+        EditText editText = dialog.findViewById(R.id.edittext);
+        editText.setHint("Task");
         Button dialogButton = (Button) dialog.findViewById(R.id.btn_dialog);
         Button dialogClose = (Button) dialog.findViewById(R.id.btn_close);
         dialogButton.setOnClickListener(new View.OnClickListener() {

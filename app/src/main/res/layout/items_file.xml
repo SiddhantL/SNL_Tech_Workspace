@@ -10,6 +10,10 @@
     android:id="@+id/fullitem"
     android:layout_centerHorizontal="true"
     android:elevation="10dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/item_score2">
         <ImageView
             android:id="@+id/item_images"
             android:layout_width="wrap_content"
@@ -17,13 +21,21 @@
             android:maxWidth="140dp"
             android:maxHeight="100dp"
             android:adjustViewBounds="true"
-            android:layout_centerHorizontal="true"
+            android:layout_centerInParent="true"
             android:layout_marginTop="0dp"
             android:textAlignment="center"
-            android:layout_above="@+id/item_score2"
             android:src="@drawable/document"
-            android:scaleType="fitXY"></ImageView>
-
+            android:elevation="2dp"
+            android:scaleType="fitXY"/>
+        <ImageView
+            android:id="@+id/colordisplay"
+            android:layout_width="100dp"
+            android:layout_height="140dp"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="0dp"
+            android:textAlignment="center"
+            android:scaleType="fitXY"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/item_score2"
             android:layout_width="wrap_content"

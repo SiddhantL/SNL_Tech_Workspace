@@ -75,6 +75,7 @@ setHasOptionsMenu(true);
                     dapps.child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            recyclerView.suppressLayout(false);
                                 data.setAdult("Yes");
                                 data.setCost("0");
                                 data.setDate("00/00/0000");
@@ -104,7 +105,7 @@ setHasOptionsMenu(true);
 
             }
         });
-        RecyclerView recyclerView2 = root.findViewById(R.id.recycleappsproject);
+        final RecyclerView recyclerView2 = root.findViewById(R.id.recycleappsproject);
         items2 = new ArrayList<>();
         adapter2 = new CustomAdapter(getContext(), items2);
         recyclerView2.setAdapter(adapter2);
@@ -122,6 +123,7 @@ setHasOptionsMenu(true);
                     dproject.child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            recyclerView2.suppressLayout(false);
                             data2.setAdult("Yes");
                             data2.setCost("0");
                             data2.setDate("00/00/0000");
@@ -151,7 +153,7 @@ setHasOptionsMenu(true);
 
             }
         });
-        RecyclerView recyclerView3 = root.findViewById(R.id.recycleappsidea);
+        final RecyclerView recyclerView3 = root.findViewById(R.id.recycleappsidea);
         items3 = new ArrayList<>();
         adapter3 = new CustomAdapter(getContext(), items3);
         recyclerView3.setAdapter(adapter3);
@@ -169,6 +171,7 @@ setHasOptionsMenu(true);
                     didea.child(ds.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            recyclerView3.suppressLayout(false);
                             data3.setAdult("Yes");
                             data3.setCost("0");
                             data3.setDate("00/00/0000");
@@ -199,6 +202,7 @@ setHasOptionsMenu(true);
             }
         });
         for (int i = 0; i < 5; i++) {
+            recyclerView.suppressLayout(true);
             EventData data=new EventData();
             data.setAdult("Yes");
             data.setCost("0");
@@ -215,6 +219,7 @@ setHasOptionsMenu(true);
             adapter.notifyDataSetChanged();
         }
         for (int i = 0; i < 5; i++) {
+            recyclerView2.suppressLayout(true);
             EventData data2=new EventData();
             data2.setAdult("Yes");
             data2.setCost("0");
@@ -231,6 +236,7 @@ setHasOptionsMenu(true);
             adapter2.notifyDataSetChanged();
         }
         for (int i = 0; i < 5; i++) {
+            recyclerView3.suppressLayout(true);
             EventData data3=new EventData();
             data3.setAdult("Yes");
             data3.setCost("0");

@@ -5,9 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.progress.DisplayTask"
-    android:background="@color/bgColor"
-    android:layout_marginTop="50dp">
-
+    android:background="@color/bgColor">
+    <include
+        layout="@layout/app_bar_nosearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <TextView
         android:id="@+id/text_slideshow"
         android:layout_width="match_parent"
@@ -26,6 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/progress"
+        android:layout_marginTop="50dp"
         android:max="100"/>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_height="wrap_content"

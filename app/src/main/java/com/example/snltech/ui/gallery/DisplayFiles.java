@@ -102,6 +102,7 @@ public class DisplayFiles extends AppCompatActivity {
                 exoPlayerView.setVisibility(View.GONE);
             } else {
                 exoPlayerView.setVisibility(View.VISIBLE);
+                initializeExoplayerView(imageURL);
             }
         }
         swipeImage.setOnTouchListener(new OnSwipeTouchListener(DisplayFiles.this) {
@@ -236,7 +237,7 @@ public class DisplayFiles extends AppCompatActivity {
         }
     }
     public void left(){
-        Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
+        Glide.with(getApplicationContext()).load(R.drawable.document).into(swipeImage);
         DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
         dref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -260,7 +261,7 @@ public class DisplayFiles extends AppCompatActivity {
                             imageURL=url;
                             initializeExoplayerView(imageURL);
                             //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                            Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                            Glide.with(getApplicationContext()).load(url).into(swipeImage);
                         }
                     });
                 }else{
@@ -283,7 +284,7 @@ public class DisplayFiles extends AppCompatActivity {
                                 imageURL=url;
                                 initializeExoplayerView(imageURL);
                                 //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                                Glide.with(getApplicationContext()).load(url).into(swipeImage);
                             }
                         });
                     }
@@ -298,7 +299,7 @@ public class DisplayFiles extends AppCompatActivity {
         });
     }
     public void right(){
-        Glide.with(DisplayFiles.this).load(R.drawable.document).into(swipeImage);
+        Glide.with(getApplicationContext()).load(R.drawable.document).into(swipeImage);
         DatabaseReference dref= FirebaseDatabase.getInstance().getReference().child("file").child(id);
         dref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -322,7 +323,7 @@ public class DisplayFiles extends AppCompatActivity {
                             imageURL=url;
                             initializeExoplayerView(imageURL);
                             //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                            Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                            Glide.with(getApplicationContext()).load(url).into(swipeImage);
                         }
                     });
                 }else{
@@ -345,7 +346,7 @@ public class DisplayFiles extends AppCompatActivity {
                                 imageURL=url;
                                 initializeExoplayerView(imageURL);
                                 //Toast.makeText(context, idEvent, Toast.LENGTH_SHORT).show();
-                                Glide.with(DisplayFiles.this).load(url).into(swipeImage);
+                                Glide.with(getApplicationContext()).load(url).into(swipeImage);
                             }
                         });
                     }

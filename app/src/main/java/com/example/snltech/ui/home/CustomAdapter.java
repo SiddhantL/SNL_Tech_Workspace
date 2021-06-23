@@ -62,10 +62,12 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomView
         holder.fullitem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, DisplayInfo.class);
-                intent.putExtra("id",items.get(position).getData().getID());
-                intent.putExtra("category",items.get(position).getData().getCategory());
-context.startActivity(intent);
+                if (items.size() != 0) {
+                    Intent intent = new Intent(context, DisplayInfo.class);
+                    intent.putExtra("id", items.get(position).getData().getID());
+                    intent.putExtra("category", items.get(position).getData().getCategory());
+                    context.startActivity(intent);
+                }
             }
         });
     }
