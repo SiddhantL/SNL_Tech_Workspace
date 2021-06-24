@@ -50,7 +50,7 @@ public class RulesAdapter extends RecyclerView.Adapter<RulesAdapter.CustomViewHo
             FirebaseStorage stor = FirebaseStorage.getInstance();
             idEvent = items.get(position).getData().getID();
               // holder.itemImage.setImageResource(R.drawable.profile);
-               holder.name.setText(items.get(position).getData().getName());
+               holder.name.setText(Integer.toString(position+1)+". "+items.get(position).getData().getName());
             //Toast.makeText(context, "images/" + idEvent + ".png", Toast.LENGTH_SHORT).show();
         }
         holder.delete.setOnClickListener(new View.OnClickListener() {

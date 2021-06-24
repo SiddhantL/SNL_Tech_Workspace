@@ -36,6 +36,7 @@ public class BlogImageAdapter extends RecyclerView.Adapter<BlogImageAdapter.Cust
     public void onBindViewHolder(@NonNull final CustomViewHolder holder, int position) {
         //holder.itemTitle.setText(items.get(position).getTitle());
         holder.itemImage.setImageBitmap(items.get(position).getBp());
+        holder.itemTitle.setText("Image #"+Integer.toString(position+1));
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

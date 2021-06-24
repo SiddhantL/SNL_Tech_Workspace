@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,15 +39,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class UploadGallery extends AppCompatActivity {
-    private Button btnSelect, btnUpload;
-
+    private Button btnUpload;
+    private RelativeLayout btnSelect;
     // view for image view
     private ImageView imageView;
 
     // Uri indicates, where the image will be picked from
     private Uri filePath;
     EditText name;
-    Spinner category;
     // request code
     String fileExtension;
     private final int PICK_IMAGE_REQUEST = 22;
@@ -71,7 +71,6 @@ public class UploadGallery extends AppCompatActivity {
         btnUpload = findViewById(R.id.button3);
         imageView = findViewById(R.id.imageView);
         name=findViewById(R.id.editText);
-        category=findViewById(R.id.spinner);
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
@@ -207,7 +206,7 @@ public class UploadGallery extends AppCompatActivity {
                     // Image uploaded successfully
                     // Dismiss dialog
                     progressDialog.dismiss();
-                    Toast.makeText(UploadGallery.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(UploadGallery.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
                     df.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -19,6 +19,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,8 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class BlogWrite extends AppCompatActivity {
-    private Button btnSelect, btnUpload;
-
+    private Button btnUpload;
+    private RelativeLayout btnSelect;
     // view for image view
 
     // Uri indicates, where the image will be picked from

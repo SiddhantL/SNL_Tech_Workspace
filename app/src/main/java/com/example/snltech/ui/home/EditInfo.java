@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,8 +37,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.IOException;
 
 public class EditInfo extends AppCompatActivity {
-    private Button btnSelect, btnUpload;
-
+    private Button btnUpload;
+    private RelativeLayout btnSelect;
     // view for image view
     private ImageView imageView;
 
@@ -69,12 +70,19 @@ public class EditInfo extends AppCompatActivity {
         name=findViewById(R.id.editText);
         about=findViewById(R.id.editText2);
         category=findViewById(R.id.spinner);
+        String[] arraycategory=getResources().getStringArray(R.array.array_name);
+        category.setEnabled(false);
         // get the Firebase  storage reference
         storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
         df= FirebaseDatabase.getInstance().getReference();
         categories=getIntent().getStringExtra("category");
         id=getIntent().getStringExtra("id");
+        for (int i=0;i<arraycategory.length;i++){
+            if (categories.equals(arraycategory[i])){
+                category.setSelection(i);
+            }
+        }
         DatabaseReference dref=FirebaseDatabase.getInstance().getReference().child(categories).child(id);
         FirebaseStorage stor = FirebaseStorage.getInstance();
         stor.getReference().child("images/"+id).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -202,9 +210,9 @@ public class EditInfo extends AppCompatActivity {
                     // Image uploaded successfully
                     // Dismiss dialog
                     progressDialog.dismiss();
-                    Toast.makeText(EditInfo.this, category.getSelectedItem().toString()+" Added", Toast.LENGTH_SHORT).show();
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-                    df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
+                    Toast.makeText(EditInfo.this, categories+" Updated", Toast.LENGTH_SHORT).show();
+                    df.child(categories).child(pushed).child("Name").setValue(name.getText().toString());
+                    df.child(categories).child(pushed).child("About").setValue(about.getText().toString());
                 }
             })
 
@@ -241,8 +249,9 @@ public class EditInfo extends AppCompatActivity {
                                 }
                             });
         }else{
-            df.child(category.getSelectedItem().toString()).child(pushed).child("Name").setValue(name.getText().toString());
-            df.child(category.getSelectedItem().toString()).child(pushed).child("About").setValue(about.getText().toString());
+            df.child(categories).child(pushed).child("Name").setValue(name.getText().toString());
+            df.child(categories).child(pushed).child("About").setValue(about.getText().toString());
+            Toast.makeText(this, categories+" Updated", Toast.LENGTH_SHORT).show();
         }
     }
 }

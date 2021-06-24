@@ -27,6 +27,7 @@ String id;
 int limit=0;
 TextView topic, content;
 ImageView displayImage;
+TextView positionImage;
     int position=1;
     String imageURL;
     String filename;
@@ -39,6 +40,7 @@ ImageView displayImage;
         TextView appbarTV = (TextView)toolbar.findViewById(R.id.appbartextview);
         appbarTV.setText("SNL Tech");
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        positionImage=findViewById(R.id.textView3);
         id=getIntent().getStringExtra("id");
         topic=findViewById(R.id.topic);
         content=findViewById(R.id.content);
@@ -55,7 +57,9 @@ ImageView displayImage;
                     if (last!=null) {
                     }else{
                         limit=i;
-                        Toast.makeText(BlogDisplay.this, Integer.toString(limit), Toast.LENGTH_SHORT).show();
+                        if (position<=limit) {
+                            positionImage.setText(Integer.toString(position) + " / " + Integer.toString(limit));
+                        }
                     }
                 }
             }
@@ -93,9 +97,15 @@ ImageView displayImage;
             public void onClick(View view) {
                 if(position==1){
                     position=limit;
+                    if (position<=limit) {
+                        positionImage.setText(Integer.toString(position) + " / " + Integer.toString(limit));
+                    }
                     //Toast.makeText(BlogDisplay.this, "His", Toast.LENGTH_SHORT).show();
                 }else{
                     position--;
+                    if (position<=limit) {
+                        positionImage.setText(Integer.toString(position) + " / " + Integer.toString(limit));
+                    }
                 }
                 //Toast.makeText(BlogDisplay.this, "Hi", Toast.LENGTH_SHORT).show();
                 FirebaseStorage stor = FirebaseStorage.getInstance();
@@ -117,9 +127,15 @@ ImageView displayImage;
             public void onClick(View view) {
                 if(position==limit){
                     position=1;
+                    if (position<=limit) {
+                        positionImage.setText(Integer.toString(position) + " / " + Integer.toString(limit));
+                    }
                     //Toast.makeText(BlogDisplay.this, "His", Toast.LENGTH_SHORT).show();
                 }else{
                     position++;
+                    if (position<=limit) {
+                        positionImage.setText(Integer.toString(position) + " / " + Integer.toString(limit));
+                    }
                 }
                 //Toast.makeText(BlogDisplay.this, "Hi", Toast.LENGTH_SHORT).show();
                 FirebaseStorage stor = FirebaseStorage.getInstance();

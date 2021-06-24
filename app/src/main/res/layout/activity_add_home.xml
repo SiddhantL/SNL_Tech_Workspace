@@ -15,6 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
+        android:backgroundTint="@color/textColor"
+        android:background="@color/textColor"
         android:layout_below="@id/editText"
         android:entries="@array/array_name" />
 
@@ -24,7 +26,11 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textSize="20dp"
-        android:layout_marginTop="50dp"
+        android:padding="10dp"
+        android:textColor="@color/textColor"
+        android:background="@color/toolbarbgColor"
+        android:textColorHint="@color/textColor"
+        android:layout_marginTop="55dp"
         android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
         android:hint="Name" />
@@ -76,6 +82,10 @@
         android:layout_below="@id/spinner"
         android:hint="About"
         android:textSize="20dp"
+        android:padding="10dp"
+        android:textColorHint="@color/textColor"
+        android:background="@color/toolbarbgColor"
+        android:textColor="@color/textColor"
         android:fontFamily="@font/montserrat"
         android:inputType="textMultiLine|textPersonName"
         android:lines="5"

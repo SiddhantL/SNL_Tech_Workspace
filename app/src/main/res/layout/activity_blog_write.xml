@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/bgColor"
     tools:context=".ui.gallery.UploadGallery">
 
     <include
@@ -14,10 +14,16 @@
 
     <EditText
         android:id="@+id/editText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:layout_marginTop="45dp"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:textColor="@color/textColor"
+        android:background="@color/toolbarbgColor"
+        android:textColorHint="@color/textColor"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/montserrat"
         android:inputType="textPersonName"
         android:hint="Name" />
 <EditText
@@ -25,17 +31,32 @@
     android:layout_height="wrap_content"
     android:layout_below="@id/editText"
     android:inputType="textMultiLine"
+    android:textSize="20dp"
+    android:layout_marginTop="5dp"
+    android:padding="10dp"
+    android:textColor="@color/textColor"
+    android:background="@color/toolbarbgColor"
+    android:textColorHint="@color/textColor"
     android:maxLines="10"
     android:hint="Content"
     android:id="@+id/content"/>
-    <Button
+    <RelativeLayout
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/button3"
+        android:background="@drawable/circular_button"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="false"
-        android:text="Select " />
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:layout_below="@id/recycle">
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_upload"/>
+    </RelativeLayout>
 
     <Button
         android:id="@+id/button3"
@@ -43,12 +64,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerVertical="true"
+        android:textColor="@color/bgColor"
+        android:textSize="18dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/circular_button"
         android:text="Submit" />
 
 <androidx.recyclerview.widget.RecyclerView
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:id="@+id/recycle"
+    android:layout_marginTop="5dp"
     android:layout_below="@+id/content"/>
     <VideoView
         android:id="@+id/videoView"
