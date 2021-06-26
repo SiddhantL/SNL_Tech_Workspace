@@ -6,5 +6,5 @@
     android:layout_height="match_parent"
     tools:context=".ui.about.AboutFragment"
     android:background="@color/bgColor"
-    android:layout_marginTop="45sp">
+    android:layout_marginTop="50dp">
 </RelativeLayout>

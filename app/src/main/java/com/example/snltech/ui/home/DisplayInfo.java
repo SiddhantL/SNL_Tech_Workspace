@@ -147,15 +147,6 @@ ImageView logo;
                 final FileAdapter adapter = new FileAdapter(DisplayInfo.this, items);
                 files.setLayoutManager(new GridLayoutManager(getApplicationContext(), 3));
                 files.setAdapter(adapter);
-                findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(DisplayInfo.this, UploadGallery.class);
-                        intent.putExtra("foldername", "foldername");
-                        intent.putExtra("folderID", idfile);
-                        startActivity(intent);
-                    }
-                });
                 dreffile.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

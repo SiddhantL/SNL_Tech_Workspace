@@ -71,7 +71,7 @@
         android:layout_below="@+id/cards"
         android:text="Title"
         android:textColor="@color/textColor"
-        android:textSize="30sp" />
+        android:textSize="30dp" />
 
     <TextView
         android:id="@+id/about"
@@ -82,7 +82,7 @@
         android:fontFamily="@font/montserrat"
         android:textColor="#121212"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="24dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/links"

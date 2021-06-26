@@ -19,14 +19,21 @@
         android:layout_above="@+id/text"
         app:srcCompat="@drawable/document" />
     <TextView
+        android:id="@+id/text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/imageView3"
         android:layout_centerHorizontal="true"
+        android:fontFamily="@font/montserrat"
+        android:text="File 1"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
         android:textColor="@color/textColor"
-        android:textSize="20sp"
-        android:text="File 1"/>
+        android:layout_toLeftOf="@id/buttonright"
+        android:textAlignment="center"
+        android:layout_toRightOf="@id/buttonleft"
+        android:layout_marginBottom="7dp"
+        android:textSize="25dp" />
 
     <com.google.android.exoplayer2.ui.SimpleExoPlayerView
         android:id="@+id/idExoPlayerView"
@@ -38,17 +45,21 @@
 
     <Button
         android:id="@+id/buttonright"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="Right" />
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/imageView3"
+        android:background="@drawable/ic_right_arrow"/>
 
     <Button
         android:id="@+id/buttonleft"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:text="Left" />
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/imageView3"
+        android:background="@drawable/ic_left_arrow_1"/>
 </RelativeLayout>

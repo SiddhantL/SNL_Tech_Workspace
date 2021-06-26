@@ -25,7 +25,7 @@
             android:text="Apps"
             android:layout_marginTop="8dp"
             android:textAlignment="viewStart"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleapps"
@@ -44,7 +44,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:textAlignment="viewStart"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleappsproject"
@@ -63,7 +63,7 @@
             android:layout_marginTop="8dp"
             android:layout_below="@id/recycleappsproject"
             android:textAlignment="viewStart"
-            android:textSize="20sp" />
+            android:textSize="20dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycleappsidea"

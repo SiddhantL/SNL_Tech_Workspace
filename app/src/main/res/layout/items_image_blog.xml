@@ -26,7 +26,7 @@
         android:paddingLeft="5dp"
         android:text="Item Title"
         android:textColor="#000"
-        android:textSize="16sp" />
+        android:textSize="16dp" />
 
     <Button
         android:id="@+id/button2"
