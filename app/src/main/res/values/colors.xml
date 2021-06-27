@@ -10,4 +10,5 @@
     <color name="endColor">#ED8F03</color>
     <color name="startColor">#FFB75E</color>
     <color name="dividerColor">#121212</color>
+    <color name="green">#04FF00</color>
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bgColor"
+    tools:context=".ui.blog.EditBlog">
+
+    <include
+        layout="@layout/app_bar_nosearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textSize="20dp"
+        android:padding="10dp"
+        android:textColor="@color/textColor"
+        android:background="@color/toolbarbgColor"
+        android:textColorHint="@color/textColor"
+        android:layout_marginTop="55dp"
+        android:fontFamily="@font/montserrat"
+        android:inputType="textPersonName"
+        android:hint="Name" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:inputType="textMultiLine"
+        android:textSize="20dp"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:textColor="@color/textColor"
+        android:background="@color/toolbarbgColor"
+        android:textColorHint="@color/textColor"
+        android:maxLines="20"
+        android:hint="Content"
+        android:id="@+id/content"/>
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/bgColor"
+        android:textSize="18dp"
+        android:elevation="5dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/circular_button"
+        android:text="Update" />
+
+
+</RelativeLayout>

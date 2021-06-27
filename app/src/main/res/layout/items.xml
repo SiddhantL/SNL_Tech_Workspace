@@ -33,11 +33,11 @@
             android:id="@+id/item_score2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
             android:layout_below="@+id/cards"
-            android:textAlignment="center"
-            android:text="Loading..."
-            android:textColor="@color/textColor"
+            android:layout_centerHorizontal="true"
             android:fontFamily="@font/montserrat"
+            android:text="Loading"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
             android:textSize="16dp" />
 </RelativeLayout>

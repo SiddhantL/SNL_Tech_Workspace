@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.snltech.R;
+import com.example.snltech.ui.home.DeleteApp;
+import com.example.snltech.ui.home.DisplayInfo;
+import com.example.snltech.ui.home.EditInfo;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -152,6 +158,30 @@ TextView positionImage;
             }
         });
 
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_edit, menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_search : {
+                //Edit
+                Intent intent=new Intent(BlogDisplay.this, EditBlog.class);
+                intent.putExtra("id",id);
+                startActivity(intent);
+                return true;
+            }
+            case R.id.menu_action_delete : {
+                DeleteBlog alerts = new DeleteBlog();
+                alerts.showDialog(BlogDisplay.this,limit,id);
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
 

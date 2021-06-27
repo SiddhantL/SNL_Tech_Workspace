@@ -15,6 +15,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.snltech.R;
+import com.example.snltech.ui.progress.DisplayTask;
+import com.example.snltech.ui.progress.ViewDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ public class ResumeFragment extends Fragment {
 
     private ResumeViewModel slideshowViewModel;
     WebView webview;
+    String url;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         slideshowViewModel =
@@ -37,6 +40,13 @@ public class ResumeFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        root.findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ViewResumeDialog alerts = new ViewResumeDialog();
+                alerts.showDialog(getActivity(),url);
+            }
+        });
         webview = (WebView) root.findViewById(R.id.webview);
         webview.getSettings().setJavaScriptEnabled(true);
         DatabaseReference df= FirebaseDatabase.getInstance().getReference().child("Resume");
@@ -44,6 +54,7 @@ public class ResumeFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 webview.loadUrl(snapshot.child("ResumeLink").getValue(String.class));
+                url=snapshot.child("ResumeLink").getValue(String.class);
             }
 
             @Override
